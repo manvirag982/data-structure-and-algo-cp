@@ -1,0 +1,72 @@
+/*You are given a binary string S. In a single operation, you can choose two indices L and R such that 1 ≤ L ≤ R ≤ N and complement the characters between L and R i.e SL, SL+1, …, SR. By complement, we mean change character 0 to 1 and vice-versa.
+You task is to perform ATMOST one operation such that in final string number of 1s is maximised. If there is no need to completement, i.e., string contains all 1s, return -1. Else, return the two values denoting L and R. If there are multiple solutions, return the lexicographically smallest pair of L and R.*/
+
+// best question on kadane algorith modification
+
+
+
+
+
+
+#include <bits/stdc++.h>
+using namespace std;
+pair<int ,int> kadane(int a[], int n)
+{
+    //  kadane algorithm  
+    
+    int ms=INT_MIN;
+    int mc=0;             // max upto/current
+    int ts=0 ,st=-1,ed=-1;  // ms = maximum sofar 
+    
+    
+    for(int i=0;i<n;i++)
+    {
+        mc+=a[i];
+        
+        if(mc<0)
+        {
+            mc=0;
+            ts=i+1;  
+        }
+        else if(mc>ms)
+        {
+            ms=mc;
+            st=ts;
+            ed=i;
+        }
+    }
+    ++st; ++ed;
+    
+    pair<int,int> tempo(st,ed);
+    return tempo ;
+}
+int main() {
+	
+	
+	int t;
+	cin>>t;
+	
+	while(t--)
+	{
+	    int n;
+	    cin>>n;
+	    int a[n];
+      string st;
+      cin>>st;
+	     for(int i=0;i<n;i++)    // since string is given so converting it into array and modified for kadane algo
+	      {
+	      	int x=st[i];
+	      	if(x==48)    // ascii code of 0 = 48
+	      	a[i]=1;
+	      	else 
+	      	a[i]=-1;
+		  }
+	    pair<int ,int> idx = kadane(a,n);
+	    
+	    if(idx.first==0||idx.second==0)
+	    cout<<"-1"<<endl;
+	    else 
+	    cout<<idx.first<<" "<<idx.second<<endl;
+	}
+	return 0;
+}
