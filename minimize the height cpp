@@ -1,0 +1,56 @@
+// minimize the height
+
+/*Given an array A[ ] denoting heights of N towers and a positive integer K, modify the
+heights of each tower either by increasing or decreasing them by K only once and then find 
+out the minimum difference of the heights of shortest and longest towers.*/
+
+
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	//code
+	
+	int t;
+	cin>>t;
+	
+	while(t--)
+	{
+	    int k,n;
+	    cin>>k>>n;
+	    
+	    int a[n];
+	    for(int i=0;i<n;i++)
+	    cin>>a[i];
+	    
+	    
+	    sort(a,a+n);   // sorting to get initial maximum height difference
+	    
+	    int idiff=a[n-1]-a[0];   // we are calculating initial difference becoz it may be happen after rearrange height diff max ,, hence we only add given n0. so height remain constant
+	     
+	     int left=a[0]+k;       //left range
+	     int right=a[n-1]-k;    // right range
+	     
+	     if(left>right)
+	     swap(left,right);
+	    
+	    for(int i=1;i<n-1;i++)
+	    {
+	        if(a[i]+k<=right||a[i]-k>=left)  //since we have to find only final difference to dont modify array it will not affect ans
+	        continue;
+	        else
+	        {
+	            left=((a[i]+k)-right)>(left-(a[i]-k))?(a[i]-k):left;
+	            right=((a[i]+k)-right)>(left-(a[i]-k))?right:(a[i]+k);
+	        }
+	        
+	    }
+	    
+	    int res=min(idiff,(right-left));
+	    
+	   cout<<res<<endl;
+	}
+	return 0;
+}
