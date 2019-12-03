@@ -1,0 +1,77 @@
+// time complexity O(n)
+/*Given an array of n positive integers and a number k. Find the minimum number of swaps required to bring all the numbers less than or equal to k together.*/
+
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	
+	
+	int t;
+	cin>>t;
+	
+	while(t--)
+	{
+	    int n;
+	    cin>>n;
+	    
+	    int a[n];
+	    for(int i=0;i<n;i++)
+	    cin>>a[i];
+	    
+	    
+	    int lt;  //element should be less than this
+	    cin>>lt;
+	    
+	    int te=0;   //total element in array less than lt   or max size of window
+	    
+	    
+	    for(int i=0;i<n;i++)   //counting
+	    {
+	        if(a[i]<=lt)
+	        te++;
+	    }
+	    
+      //using window sliding concept
+	    int i=0;     //window initial point
+	    int f=te-1;  //window final point
+	    int mew=0;     // total element in i...f
+	    
+	    
+	    for(int k=0;k<te;k++)
+	    {
+	        if(a[k]<=lt)
+	        mew++;
+	    }
+	    int maxele=mew;   ///saving max element
+	    
+	    while(f!=n-1)
+	    {
+	        if(a[f+1]<=lt)
+	        {
+	            if(a[i]>lt)
+	            mew++;
+	            
+	         }
+	         else
+	         {
+	             if(a[i]<=lt)
+	             mew--;
+	         }
+	        
+	        maxele=max(maxele,mew);
+	       
+	        
+	        
+	        i++; f++;
+	    }
+	    
+	    cout<<(te-maxele)<<endl;
+	    
+	    
+	    
+	}
+	return 0;
+}
