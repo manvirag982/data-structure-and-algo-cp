@@ -1,0 +1,96 @@
+/*A Tic-Tac-Toe board is given after some moves are played. Find out if the given board is valid, i.e., is it possible to reach this board position after some moves or not.
+
+Note that every arbitrary filled grid of 9 spaces isn’t valid e.g. a grid filled with 3 X and 6 O isn’t valid situation because each player needs to take alternate turns.
+
+Note :  The game starts with X */
+
+
+// concept behind is since x is first move and  we are given an full grid it means that 'O' can never win this game , becoz if 'O' is win the 
+// then no. of zero and cross should be same but here is not;......secondly we have check that zero should be less than cross and and difference of zero
+// crosss should not more than two.....
+
+
+
+
+#include <iostream>
+using namespace std;
+const int n=3;
+
+
+bool rowchecker(char tto[n][n],char V ,int ix)
+{
+    int count=0;
+    
+    for(int i=0;i<3;i++)
+    {
+        if(tto[ix][i]==V)
+        count++;
+        
+        
+    }
+    if(count==3)
+    return true;
+    else 
+    return false;
+}
+bool colchecker(char tto[n][n],char V ,int ix)
+{
+    int count=0;
+    
+    for(int i=0;i<3;i++)
+    {
+        if(tto[i][ix]==V)
+        count++;
+        
+        
+    }
+    if(count==3)
+    return true;
+    else 
+    return false;
+    
+}
+
+bool colwin(char tto[n][n])
+{
+    if(colchecker(tto,'O',0)||colchecker(tto,'O',1)||colchecker(tto,'O',2)||rowchecker(tto,'O',0)||rowchecker(tto,'O',1)||rowchecker(tto,'O',2))
+    return false;
+    if(tto[0][0]=='O'&&tto[2][2]=='O'&&tto[1][1]=='O'||tto[2][0]=='O'&&tto[0][2]=='O'&&tto[1][1]=='O')
+    return false;
+    else 
+    return true;
+    
+}
+int main() {
+
+	int t;
+	cin>>t;
+	
+	while(t--)
+	{
+	    char  tto[3][3];
+	    int cross=0;
+	    int zero=0;
+	    for(int i=0;i<3;i++)
+	    {
+	        for(int j=0;j<3;j++)
+	        {
+	            cin>>tto[i][j];
+	            if(tto[i][j]=='O')
+	            zero++;
+	            else
+	            cross++;
+	        }         
+	    }
+	    
+	    if(zero>=cross||cross-zero>1)
+	    {cout<<"Invalid"<<endl; continue;}
+	    
+	    if(colwin(tto))
+	    cout<<"Valid"<<endl;
+	    else
+	    cout<<"Invalid"<<endl;
+	    
+	}
+	return 0;
+}
