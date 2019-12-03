@@ -1,0 +1,56 @@
+//best application of longest incresing subarray
+ 
+ /*Given an array A[0 … n-1] containing n positive integers, a subarray A[i … j] is bitonic if there is a k with i < k < j such that A[i] < A[i + 1] ... < A[k] > A[k + 1] > .. A[j – 1] >  A[j]. Write a program that returns the length of the maximum length bitonic subarray.
+
+For Example: In array {20, 4, 1, 2, 3, 4, 2, 10} the maximum length bitonic subarray is {1, 2, 3, 4, 2} which is of length 5.
+
+Note: A[k] can be first or last element. Ex:-  10 20 30 , 30 20 10 and 1 2 3 4 3 2 1 these all are bitonic array. */
+
+// by seeing that we can think question as updated version of longest increasing subarray from left and from right
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+
+	
+	int t;
+	cin>>t;
+	
+	while(t--)
+	{
+	    int n;
+	    cin>>n;
+	        
+	    int a[n];
+	    int lisal[n];  //longest increasing subarray from left
+	    int lisar[n];  //longest increasing subarray from right
+	    for(int i=0;i<n;i++)
+	    {
+	       cin>>a[i];
+	    }
+	    
+	    lisal[0]=1;
+	    lisar[n-1]=1;
+	    for(int i=1;i<n;i++)
+	    {
+	        // longest non decresing subsequence from left
+	        if(a[i]>a[i-1])
+	        lisal[i]=lisal[i-1]+1;
+	        else
+	        lisal[i]=1;
+	        
+	        if(a[n-i-1]>a[n-i])
+	        lisar[n-i-1]=lisar[n-i]+1;
+	        else
+	        lisar[n-i-1]=1;
+	        
+	    }
+	    int res=INT_MIN;
+	    for(int i=0;i<n;i++)
+	    {
+	        res=max(res,(lisal[i]+lisar[i]-1));
+	    }
+	    cout<<res<<endl;
+	}
+	return 0;
+}
