@@ -1,0 +1,55 @@
+//Largest Sum Subarray of Size at least K
+//good level question include concepts of kadane window sliding 
+
+/*Given an array and a number k, find the largest sum of the subarray containing at least k numbers.
+It may be assumed that the size of array is at-least k. */
+
+
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	
+	int t; 
+	cin>>t;
+	while(t--){
+	    
+	int n,k; 
+	cin>>n;
+	int a[n]; 
+	for(int i=0;i<n;i++){
+	cin>>a[i];}
+	cin>>k;
+	    
+    //thinking that if we know max sum at any point that we can overcome atleast condition 
+	int mxsm[n];
+	mxsm[0]=a[0];
+	// kadane algorithm for more than k 
+	for(int i=1;i<n;i++){
+	    mxsm[i]=max(a[i],a[i]+mxsm[i-1]);
+	}  
+	
+	// using window sliding for k
+	
+	long int sum=0;
+	for(int i=0;i<k;i++){
+	sum+=a[i];}
+	long int res=sum;
+	
+	// check for all array and for grater than k also
+	
+	for(int i=k;i<n;i++)
+	{
+	    //window sliding
+	    sum=sum+a[i]-a[i-k];
+	    res=max(sum,res);
+	    //for array greater than k
+	    res=max(res,sum+mxsm[i-k]);
+	}
+	
+	cout<<res<<endl;
+   }
+   return 0;
+}
