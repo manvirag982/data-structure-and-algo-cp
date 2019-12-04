@@ -54,3 +54,66 @@ int main() {
 	}
 	return 0;
 }
+//time complexity O(n)
+// space O(n)
+
+
+
+
+
+///optimised solution
+//space O(1)
+
+
+
+
+
+#include<bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    int t;
+    cin>>t;
+    
+    while(t--)
+    {
+        long long int n;
+        cin>>n;
+        
+        long long int a[n];
+        
+        for(int i=0;i<n;i++)
+        cin>>a[i];
+        
+        long long int sum=0,res=0,dec=0;
+        
+        sum=a[0]; res=a[0];
+        
+        for(int i=1;i<n;i++)
+        {
+            if(a[i]<a[i-1]){            //    *
+                dec=1;                  //     *
+                sum+=a[i];              //      *
+            }
+            else if(a[i]>a[i-1]){            //           
+                if(dec==1){                   //          *       *
+                    res=max(res,sum);           //         *     *
+                    sum=a[i-1]+a[i];  dec=0;   //           *   *
+                }                             //              *
+                else{                        //                          
+                    sum+=a[i];                //            *
+                }                             //           *
+            }                                  //         *
+            else{                           //
+                       sum=a[i];
+                       dec=0;
+                                         //       * * * *
+            }                          
+            res=max(res,sum);//
+        }
+        cout<<res<<endl;
+        
+    }
+    return 0;
+}
