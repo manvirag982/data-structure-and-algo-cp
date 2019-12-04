@@ -1,0 +1,57 @@
+/*Given an array of N elements and L and R, print the number of sub-arrays such that the value of the maximum array 
+element in that subarray is at least L and at most R. */
+
+/* problem understanding----since total subarray of size n will be n*(n+1)/2.. 2.. the value which is greater than 
+R will never be in subarray ,, and less than L ..we have remove all subarray which made up from consecutive element less than L
+
+
+
+#include <bits/stdc++.h>
+using namespace std;
+int countsa(int x)
+{
+    return  (x*(x+1))/2;
+}
+int main() 
+{
+	int t;
+	cin>>t;
+	
+	while(t--)
+	{
+	    int n,l,r;
+	    cin>>n>>l>>r;
+	    
+	    int a[n];
+	    
+	    for(int i=0;i<n;i++)
+	    cin>>a[i];
+	    
+	    int Ls=0;
+	    int Rs=0;
+	    long long int res=0;
+	    for(int i=0;i<n;i++)
+	    {
+	        if(a[i]<l){
+	             
+	             Ls++;
+	             Rs++;
+	        }
+	        else if(a[i]>r){
+	            
+	            res+=countsa(Rs)-countsa(Ls);
+	            Ls=0;
+	            Rs=0;
+	        }
+	        else{
+	            res-=countsa(Ls);
+	            Ls=0;
+	            Rs++;
+	        }
+	        
+	     }
+	     res+=countsa(Rs)-countsa(Ls);
+	     cout<<res<<endl;
+	}
+	return 0;
+}
