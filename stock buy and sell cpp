@@ -1,0 +1,44 @@
+
+/*The cost of stock on each day is given in an array A[] of size N. Find all the days on which you buy 
+and sell the stock so that in between those days your profit is maximum.*/
+
+
+
+
+
+#include <bits/stdc++.h>
+using namespace std;
+void sellbuy(int a[],int n){
+    int i=0;
+    int flag=0;
+    while(i<n){
+        
+        while(i<n-1&&a[i+1]<=a[i])
+        i++;
+        
+        if(i==n-1)
+        break;
+        
+        int buy=i;
+        i++;
+        while(i<n&&a[i]>=a[i-1])
+        i++;
+        
+        int sell=i-1;
+        
+        cout<<"("<<buy<<" "<<sell<<")"<<" ";
+        
+        flag++;
+    }
+    if(flag==0)
+    cout<<"No Profit"<<" ";
+    
+}
+int main() {
+	
+	int t ; cin>>t;  while(t--){
+	    int n; cin>>n; int a[n];  for(int i=0;i<n;i++) cin>>a[i];
+	   sellbuy(a,n); cout<<endl;   
+	 }
+	return 0;
+}
