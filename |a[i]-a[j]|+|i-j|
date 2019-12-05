@@ -1,0 +1,31 @@
+/*Given a unsorted array, you need to find the maximum difference of absolute values of elements 
+and indexes, i.e., for i < j, calculate maximum of | A[i] - A[j] | + | i - j |.*/
+
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	//code
+	int t; cin>>t ; while(t--){
+	   long int n; cin>>n; long int a[n]; for(int i=0;i<n;i++) cin>>a[i];
+	   
+	   //since i<j so there may be two expansion of equation 1.(a[i]-i)-(a[j]-j) 2.(a[j]+j)-(a[i]+i)
+	   // wehave to find max in 1 and 2;
+	   
+	   long int max1=INT_MIN,min1=INT_MAX,max2=INT_MIN,min2=INT_MAX;
+	   
+	   for(int i=0;i<n;i++)
+	   {
+	       max1=max(max1,a[i]-i);
+	       min1=min(min1,a[i]-i);
+	       max2=max(max2,a[i]+i);
+	       min2=min(min2,a[i]+i);
+	       
+	   }
+	   cout<<max((max1-min1),(max2-min2));
+	   cout<<endl;
+	}
+	return 0;
+}
