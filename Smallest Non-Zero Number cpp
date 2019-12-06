@@ -1,0 +1,68 @@
+/*Given an array of size n your goal is to find a number such that when the number is processed against each array element starting from the 0th index till the (n-1)-th index under the conditions given below, it never becomes negative.
+
+If the number is greater than an array element, then it is increased by difference of the number and the array element.
+If the number is smaller than an array element, then it is decreased by difference of the number and the array element.
+Input:
+First line consists of T, test cases. First line of every test case consists of N, denoting number of elements in array. Second line consists of elements of array.
+
+Output:
+Single line output, print the smallest possible number.
+
+Constraints:
+1<=T<=100
+1<=N<=10^4
+
+Example:
+Input:
+2
+5
+3 4 3 2 4
+5
+1 2 3 4 5
+Output:
+4
+2  */
+
+// time complexity O(n2)
+
+// if we see question its looking terrible , if you use pen and see you will get it 
+//let understand with example like array given as a,b,c
+// then let solution be x then   x+(x-a)=2x-a ,
+//   for second element 2(2x-a)-b //since we have to add previous diff x+diff ,, then now x= previous x + previous x -b= 2*previous x -b
+//    ===2^2x-2^1a-b similarly we will get 2^3x-2^2a-2^ab-c ....now this should be atleAast 1;
+//
+//
+//          then x=a/2+b/2^2 + c/2^3 +1^2^3
+//
+//             but it will be decimel so convert into int greter than this
+//
+//
+//
+//
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() 
+{
+     int t; cin>>t ;  
+     while(t--)
+     {
+         int n;  cin>>n;  int a[n]; for(int i=0;i<n;i++) cin>>a[i];
+         
+         double res=0;
+         
+         for(int i=0;i<n;i++){
+             res+=a[i]/pow(2,i+1);
+         }
+         res+=1/pow(2,n);
+         int check=(int)res;
+         
+         if(res-(double)check>0)
+         cout<<(int)(res+1)<<endl;
+         else 
+         cout<<(int)(res)<<endl;
+         
+         
+     }	
+	return 0;
+}
