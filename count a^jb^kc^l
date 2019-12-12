@@ -1,0 +1,106 @@
+Here is my attempt in explaining this solution:
+
+To understand it better, Lets take an example : s = "aaabbcc"
+
+1. Let's take 3 variables aCount, bCount, and cCount. where,
+aCount stores total number of subsequences so far ending with 'a'
+bCount stores total number of subsequences so far ending with 'b'
+cCount stores total number of subsequences so far ending with 'c'
+
+initialize all 3 variables to zero, aCount = bCount = cCount = 0, 
+as initially we have 0 subsequences ending with 'a', 'b', and 'c'
+
+2. Iterate through all characters of the input string
+when i = 0, s[i] = 'a'
+aCount = 1
+
+when i = 1, s[i] = 'a'
+What are the different subsequences ending with 'a' now ? They are as below:
+a (at index 0)
+aa (index 0, index 1)
+a (at index 1)
+
+so aCount = 3
+
+Now what can this be summarized into:
+1. first 'a' is from previous subsequences ending with 'a', i.e., when we don't consider current 'a' 
+    as part of subsequence, and that count we already have stored in aCount.
+2. second 'aa' is when we append current 'a' to previous total number of subsequences ending 
+    with 'a', which we already have stored in aCount.
+3. third 'a' is when we consider current 'a' as the beginning of a new subsequence, so this 
+    contributes 1 to new total number of subsequences ending with 'a'.
+
+so updated aCount = (1) + (2) + (3) = aCount + aCount + 1 = 2 * aCount + 1 = 3
+
+when i = 2, s[i] = 'a'
+What are the different subsequences ending with 'a' now ? They are as below:
+1. a, a, aa (from previous subsequences ending with 'a', i.e., when we don't consider current 'a' 
+    as part of a subsequence, and that count we already have stored in aCount.)
+2. aa, aa, aaa (when we append current 'a' to previous total number of subsequences ending 
+    with 'a', which we already have stored in aCount.)
+3. a (when we consider current 'a' as the beginning of a new subsequence, so this contributes 
+    1 to new total number of subsequences ending with 'a'.)
+
+so updated aCount = (1) + (2) + (3) = aCount + aCount + 1 = 2 * aCount + 1 = 7
+
+So generalized formula to calculate aCount is aCount = 2 * aCount + 1
+
+
+
+when i = 3, s[i] = 'b'
+What are the different subsequences ending with 'b' ? They are as below:
+ab, ab, aab, aab, aab, aaab, ab 
+(this is when we append current 'b' to previous total number of subsequences ending 
+with 'a', which we already have stored in aCount)
+
+therefore bCount = aCount = 7
+
+when i = 4, s[i] = 'b'
+What are the different subsequences ending with 'b' now ? They are as below:
+1. ab, ab, aab, aab, aab, aaab, ab (this is when we append current 'b' to previous total number 
+    of subsequences ending with 'a', which we already have stored in aCount)
+2. abb, abb, aabb, aabb, aabb, aaabb, abb (this is when we append current 'b' to previous total 
+    number of subsequences ending with 'b', which we already have stored in bCount)
+3. ab, ab, aab, aab, aab, aaab, ab (this is from previous total subsequences ending with 'b', i.e., 
+    when we don't consider current 'b' as part of a subsequence, and that count we already have 
+    stored in bCount.)
+
+so updated bCount = (1) + (2) + (3) = aCount + 2 * bCount = 7 + 2*7 = 21
+
+So generalized formula to calculate bCount is bCount = aCount + 2 * bCount
+
+
+
+when i = 5, s[i] = 'c'
+What are the different subsequences ending with 'c' ? They are as below:
+abc, abc, aabc, aabc, aabc, aaabc, abc, abbc, abbc, aabbc, aabbc, aabbc, aaabbc, abbc, abc, 
+abc, aabc, aabc, aabc, aaabc, abc
+(this is when we append current 'c' to previous total number of subsequences ending with 'b', 
+which we already have stored in bCount)
+
+therefore cCount = bCount = 21
+
+when i = 6, s[i] = 'c'
+What are the different subsequences ending with 'c' now ? They are as below:
+1. abc, abc, aabc, aabc, aabc, aaabc, abc, abbc, abbc, aabbc, aabbc, aabbc, aaabbc, abbc, abc, 
+abc, aabc, aabc, aabc, aaabc, abc
+(this is when we append current 'c' to previous total number of subsequences ending with 'b', 
+which we already have stored in bCount)
+
+2. abcc, abcc, aabcc, aabcc, aabcc, aaabcc, abcc, abbcc, abbcc, aabbcc, aabbcc, aabbcc, aaabbcc, 
+abbcc, abcc, abcc, aabcc, aabcc, aabcc, aaabcc, abcc 
+(this is when we append current 'c' to previous total number of subsequences ending with 'c',
+which we already have stored in cCount)
+
+3. abc, abc, aabc, aabc, aabc, aaabc, abc, abbc, abbc, aabbc, aabbc, aabbc, aaabbc, abbc, abc, abc, 
+aabc, aabc, aabc, aaabc, abc
+(this is from previous total subsequences ending with 'c', i.e., when we don't consider current 'c' as part 
+of a subsequence, and that count we already have stored in cCount.)
+
+so updated cCount = (1) + (2) + (3) = bCount + 2 * cCount = 21 + 2*21 = 63
+
+So generalized formula to calculate cCount is cCount = bCount + 2 * cCount
+
+Final count is cCount = 63.
+
+Hope this helps! 
